@@ -24,6 +24,18 @@ class FourthPage extends StatelessWidget {
                 )
               ),
             ),
+            SizedBox(height: 10,),
+            TextField(
+              controller: sampleText,
+              decoration: InputDecoration(
+                  hint: Text("Username"),
+                  icon: Icon(Icons.person),
+                  fillColor: Colors.lightBlueAccent,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)
+                  )
+              ),
+            ),
             ElevatedButton(onPressed: (){
               print(sampleText.text);
             }, child: Text("Press Me")),
