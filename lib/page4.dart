@@ -7,7 +7,18 @@ class FourthPage extends StatefulWidget {
 
 class _FourthPageState extends State<FourthPage> {
   // const FourthPage({super.key});
-  TextEditingController sampleText = new TextEditingController();
+  TextEditingController username = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+
+  var usernameVal = "";
+  var passwordVal = "";
+
+  buildRow(sampleImage) => Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Image.asset(sampleImage)
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +42,7 @@ class _FourthPageState extends State<FourthPage> {
               ),),
               SizedBox(height: 30,),
               TextField(
-                controller: sampleText,
+                controller: username,
                 decoration: InputDecoration(
                   hint: Text("Username"),
                   icon: Icon(Icons.person, color: Colors.white,),
@@ -44,6 +55,7 @@ class _FourthPageState extends State<FourthPage> {
               ),
               SizedBox(height: 10,),
               TextField(
+                controller: password,
                 decoration: InputDecoration(
                     hint: Text("Password"),
                     icon: Icon(Icons.lock, color: Colors.white,),
@@ -57,7 +69,11 @@ class _FourthPageState extends State<FourthPage> {
               ),
               SizedBox(height: 30,),
               ElevatedButton(onPressed: (){
-                print(sampleText.text);
+                setState(() {
+                  usernameVal = username.text;
+                  passwordVal = password.text;
+
+                });
               }, child: Text("Login", style: TextStyle(fontSize: 20),),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
@@ -65,8 +81,8 @@ class _FourthPageState extends State<FourthPage> {
                 )
                 ),
 
-              Text("Username"),
-              Text("Password")
+              Text("Username: $usernameVal"),
+              Text("Password: $passwordVal")
             ],
           ),
         ),

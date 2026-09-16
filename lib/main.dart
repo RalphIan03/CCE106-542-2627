@@ -7,7 +7,7 @@ void main() {
   return runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FourthPage(),
+      home: SecondPage(),
     )
   );
 }

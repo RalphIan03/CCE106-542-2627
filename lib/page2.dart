@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:sampleflutter/page3.dart';
 
-class SecondPage extends StatelessWidget {
+class SecondPage extends StatefulWidget {
   const SecondPage({super.key});
+
+  @override
+  State<SecondPage> createState() => _SecondPageState();
+}
+
+class _SecondPageState extends State<SecondPage> {
+
+  ImageStack(imageFile, textValue) => Stack(
+    alignment: AlignmentGeometry.bottomLeft,
+    children: [
+      Image.asset(
+        imageFile,
+        height: 100,
+        width: 150,
+      ),
+      Text(textValue, style: TextStyle(color: Colors.white),),
+    ],
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -11,25 +29,14 @@ class SecondPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 100,),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Image.asset(
-                    'assets/image/pic1.jpg',
-                    height: 200,
-                    width: 200,
-                  ),
-                  Image.asset(
-                    'assets/image/pic1.jpg',
-                    height: 200,
-                    width: 200,
-                  ),
-                  Image.asset(
-                    'assets/image/pic1.jpg',
-                    height: 200,
-                    width: 200,
-                  ),
+                  ImageStack("assets/image/pic1.jpg", "Mac Lab"),
+                  ImageStack("assets/image/pic2.jpg", "Outside UM"),
+                  ImageStack("assets/image/pic3.jpg", "Flag Pole"),
                 ],
               ),
             ),
@@ -142,7 +149,7 @@ class SecondPage extends StatelessWidget {
                             color: Colors.white,
                             fontSize: 20
                         ),)),
-                  
+
                 ),
               ],
             ),
