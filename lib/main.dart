@@ -23,8 +23,14 @@ class HomePage extends StatelessWidget {
         title: Text("Welcome to my first Flutter App"),
         backgroundColor: Colors.blueAccent,
       ),
-      body: Center(
-        child: Text("Hello Word"),
+      body: Column(
+        children: [
+          Center(
+            child: Text("Hello Word"),
+          ),
+          Icon(Icons.woman_sharp, color: Colors.red,)
+          
+        ],
       ),
     );
   }
