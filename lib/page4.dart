@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sampleflutter/page2.dart';
 
 class FourthPage extends StatefulWidget {
   @override
@@ -72,8 +73,13 @@ class _FourthPageState extends State<FourthPage> {
                 setState(() {
                   usernameVal = username.text;
                   passwordVal = password.text;
-
                 });
+                //
+                // Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=> SecondPage()));
+                // Navigator.push(context, MaterialPageRoute(builder:(context)=> SecondPage()));
+
+                usernameVal == "Gwapo"&&passwordVal=="Gwapo123"?Navigator.push(context, MaterialPageRoute(builder:(context)=> SecondPage(usernames: "Gwapo", name: "Jebee UV Kapa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2nH9OMhCzfIGkHgMg3Nsu72I4jqdsy62nqJa9M0zH0g&s=10",))):print("Wrong");
+
               }, child: Text("Login", style: TextStyle(fontSize: 20),),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,

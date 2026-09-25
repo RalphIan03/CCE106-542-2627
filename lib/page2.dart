@@ -3,15 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:sampleflutter/page3.dart';
 
 class SecondPage extends StatefulWidget {
-  const SecondPage({super.key});
+  const SecondPage({super.key,
+    required this.usernames,
+    required this.name,
+    required this.image
+  });
+
+  final String usernames;
+  final String name;
+  final String image;
 
   @override
   State<SecondPage> createState() => _SecondPageState();
 }
 
-
-
 class _SecondPageState extends State<SecondPage> {
+
+  var username = "";
+
+  var postData = [{'profilePic':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcQc0hl7bLaegLx75UZYZ9au3doK-IkdJTS0Tf0ZclZg&s=10',
+                    'name':'Mark Zuckerberg',
+                    'description':'What a beautiful night sky',
+                    'postImage':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1w1wpQj2TPW3jZ8c8AcNGu3bU_vW9RMzL77HOTM18bw&s=10',
+                    'starRating':1},
+                  {'profilePic':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm5_Qb4_b0u8m2cZ_9r4zw4HzKJjiV565N_xHkmU2Zlw&s', 'name':'TungTungTung Sahur', 'description':'My beloved Ballerina','postImage':'https://i.ytimg.com/vi/If9jjH4Y7d8/hqdefault.jpg', 'starRating':3},
+                  {'profilePic':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCz9H8GD3WcAVzdbximrm0tIXZ0B2MGa8Ob18X39Rn-g&s=10', 'name':'Wade Wilson', 'description':'Me and My best bud', 'postImage':'https://m.media-amazon.com/images/M/MV5BOTcxNzNmMzItYTk0ZC00YmM4LThhYTQtOTFhYzE4YjNkODhmXkEyXkFqcGdeQWpnYW1i._V1_.jpg', 'starRating':2},
+                  {'profilePic':'https://media.wired.com/photos/5926c126af95806129f50868/3:2/w_2560%2Cc_limit/SuperMarioRunTA.jpg', 'name':'Super Mario', 'description':'Mamamia', 'postImage':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn62sDEjEkbHjjoWD_KEjiby1TXHrY3jZNmbf4GqOgQLX1ODOE4CXdwJaE&s=10', 'starRating':4}];
+
 
   starRenderer(int starRating) => Row(
     children: [
@@ -21,9 +39,10 @@ class _SecondPageState extends State<SecondPage> {
         Icon(Icons.star)
     ],
   );
+  PostShape(postAvatar,postTitle, postDesc, postImage, starRating) {
 
 
-  PostShape(postAvatar,postTitle, postDesc, postImage, starRating)=> Container(
+    return Container(
     width: double.infinity,
     child: Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
@@ -81,6 +100,7 @@ class _SecondPageState extends State<SecondPage> {
       ),
     ),
   );
+  }
   ImageStack (imageFile, textValue) => Stack(
     alignment: AlignmentGeometry.bottomLeft,
     children: [
@@ -104,6 +124,23 @@ class _SecondPageState extends State<SecondPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 40,),
+
+            Text("Username: "+ widget.usernames),
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(widget.image),
+                ),
+                Text(widget.name)
+              ],
+            ),
+
+            ElevatedButton(onPressed: (){
+
+              Navigator.pop(context);
+
+            }, child: Text("Back")),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -115,10 +152,22 @@ class _SecondPageState extends State<SecondPage> {
               ),
             ),
             SizedBox(height: 20,),
-            PostShape("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcQc0hl7bLaegLx75UZYZ9au3doK-IkdJTS0Tf0ZclZg&s=10" ,"Mark Zuckerberg", "What a beautiful night sky", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1w1wpQj2TPW3jZ8c8AcNGu3bU_vW9RMzL77HOTM18bw&s=10", 1),
-            PostShape("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm5_Qb4_b0u8m2cZ_9r4zw4HzKJjiV565N_xHkmU2Zlw&s" ,"TungTungTung Sahur", "My beloved Ballerina", "https://i.ytimg.com/vi/If9jjH4Y7d8/hqdefault.jpg", 3),
-            PostShape("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCz9H8GD3WcAVzdbximrm0tIXZ0B2MGa8Ob18X39Rn-g&s=10", "Wade Wilson", "Me and My best bud", "https://m.media-amazon.com/images/M/MV5BOTcxNzNmMzItYTk0ZC00YmM4LThhYTQtOTFhYzE4YjNkODhmXkEyXkFqcGdeQWpnYW1i._V1_.jpg", 2),
-            PostShape("https://media.wired.com/photos/5926c126af95806129f50868/3:2/w_2560%2Cc_limit/SuperMarioRunTA.jpg", "Super Mario", "Mamamia", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn62sDEjEkbHjjoWD_KEjiby1TXHrY3jZNmbf4GqOgQLX1ODOE4CXdwJaE&s=10",1),
+
+            //button -----------------------------------------------------
+            // ElevatedButton(onPressed: (){
+            //   for(var x = 0; x < sample.length; x++){
+            //     print(sample[x]['sample1'].toString());
+            //     print(sample[x]['sample2'].toString());
+            //   }
+            //
+            //
+            // }, child: Text("press")),
+            for(int i = 0; i<postData.length; i++)
+              PostShape(postData[i]['profilePic'],
+                  postData[i]['name'],
+                  postData[i]['description'],
+                  postData[i]['postImage'],
+                  postData[i]['starRating']),
 
             // Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRORHqt5EPV_gP6qWzf0fGS2YVsX9wdmknFAGWrXuB7Su9ruzMspxaobl_B&s=10'),
             Row(
