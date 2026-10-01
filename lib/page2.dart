@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sampleflutter/page3.dart';
+import 'package:sampleflutter/page5.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({super.key,
@@ -101,17 +102,33 @@ class _SecondPageState extends State<SecondPage> {
     ),
   );
   }
-  ImageStack (imageFile, textValue) => Stack(
-    alignment: AlignmentGeometry.bottomLeft,
-    children: [
-      Image.asset(
-        imageFile,
-        height: 100,
-        width: 150,
+
+  ImageStack (imageFile, textValue) => InkWell(
+    radius: 10,
+    splashColor: Colors.red,
+    onTap: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => viewPicturePage(txtTitle: textValue, imageFile: imageFile)));
+    },
+    child: Container(
+      color: Colors.grey,
+      width: 200,
+      child: Stack(
+        alignment: AlignmentGeometry.bottomLeft,
+        children: [
+          Image.asset(
+            imageFile,
+            height: 100,
+            width: 150,
+          ),
+          Text(textValue, style: TextStyle(color: Colors.black),),
+        ],
       ),
-      Text(textValue, style: TextStyle(color: Colors.white),),
-    ],
+    ),
   );
+
+
+  TextEditingController caption = TextEditingController();
+  TextEditingController image = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -121,139 +138,190 @@ class _SecondPageState extends State<SecondPage> {
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 40,),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 20,),
 
-            Text("Username: "+ widget.usernames),
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(widget.image),
-                ),
-                Text(widget.name)
-              ],
-            ),
-
-            ElevatedButton(onPressed: (){
-
-              Navigator.pop(context);
-
-            }, child: Text("Back")),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+              Row(
                 children: [
-                  ImageStack("assets/image/pic1.jpg", "Mac Lab"),
-                  ImageStack("assets/image/pic2.jpg", "Outside UM"),
-                  ImageStack("assets/image/pic3.jpg", "Flag Pole"),
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(widget.image),
+                  ),
+                  SizedBox(width: 10,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(widget.name),
+                      Text("Username: "+ widget.usernames),
+                    ],
+                  ),
                 ],
               ),
-            ),
-            SizedBox(height: 20,),
 
-            //button -----------------------------------------------------
-            // ElevatedButton(onPressed: (){
-            //   for(var x = 0; x < sample.length; x++){
-            //     print(sample[x]['sample1'].toString());
-            //     print(sample[x]['sample2'].toString());
-            //   }
-            //
-            //
-            // }, child: Text("press")),
-            for(int i = 0; i<postData.length; i++)
-              PostShape(postData[i]['profilePic'],
-                  postData[i]['name'],
-                  postData[i]['description'],
-                  postData[i]['postImage'],
-                  postData[i]['starRating']),
 
-            // Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRORHqt5EPV_gP6qWzf0fGS2YVsX9wdmknFAGWrXuB7Su9ruzMspxaobl_B&s=10'),
-            Row(
-              children: [
+              SizedBox(height: 20,),
+              // ElevatedButton(onPressed: (){
+              //
+              //   Navigator.pop(context);
+              //
+              // }, child: Text("Back")),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ImageStack("assets/image/pic1.jpg", "Mac Lab"),
+                    SizedBox(width: 10,),
+                    ImageStack("assets/image/pic2.jpg", "Outside UM"),
+                    SizedBox(width: 10,),
+                    ImageStack("assets/image/pic3.jpg", "Flag Pole"),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20,),
 
-                Container(
-                  height: 50,
-                  width: 150,
-                  color: Colors.blue,
-                  child: Center(
-                      child: Text("Hello",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),)),
+              Text("Create Post"),
+              TextField(
+                controller: caption,
+                decoration: InputDecoration(
+                    hint: Text("Enter Caption")
                 ),
-                Container(
-                  height: 50,
-                  width: 150,
-                  color: Colors.green,
-                  child: Center(
-                      child: Text("World",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),)),
+              ),
+              TextField(controller: image,
+                decoration: InputDecoration(
+                  hint: Text("Enter Image Link")
                 ),
-              ],
-            ),
-            Row(
-              children: [
-                Container(
-                  height: 50,
-                  width: 150,
-                  color: Colors.blue,
-                  child: Center(
-                      child: Text("Hello",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),)),
-                ),
-                Container(
-                  height: 50,
-                  width: 150,
-                  color: Colors.red,
-                  child: Center(
-                      child: Text("World",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),)),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Container(
-                  height: 50,
-                  width: 150,
-                  color: Colors.blue,
-                  child: Center(
-                      child: Text("Hello",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),)),
-                ),
-                Container(
-                  height: 50,
-                  width: 150,
-                  color: Colors.green,
-                  child: Center(
-                      child: Text("World",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),)),
+              ),
+              ElevatedButton(onPressed: (){
+                setState(() {
+                  postData.add({'profilePic':widget.image, 'name':widget.name, 'description':caption.text, 'postImage': image.text, 'starRating':0});
+                });
+              }, child: Text("Create Post")),
 
+              SizedBox.fromSize(
+                size: Size(56, 56),
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.blue,
+                    child: InkWell(
+                      splashColor: Colors.green,
+                      onTap: (){},
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.shopping_cart, color: Colors.white,),
+                          Text("Buy", style: TextStyle(color: Colors.white),)
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ],
-            ),
-            ElevatedButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> Page3()));
-            }, child: Text("Page 3"))
-          ],
+              ),
+
+              //button -----------------------------------------------------
+              // ElevatedButton(onPressed: (){
+              //   for(var x = 0; x < sample.length; x++){
+              //     print(sample[x]['sample1'].toString());
+              //     print(sample[x]['sample2'].toString());
+              //   }
+              //
+              //
+              // }, child: Text("press")),
+              for(int i = 0; i<postData.length; i++)
+                PostShape(postData[i]['profilePic'],
+                    postData[i]['name'],
+                    postData[i]['description'],
+                    postData[i]['postImage'],
+                    postData[i]['starRating']),
+
+              // Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRORHqt5EPV_gP6qWzf0fGS2YVsX9wdmknFAGWrXuB7Su9ruzMspxaobl_B&s=10'),
+              Row(
+                children: [
+
+                  Container(
+                    height: 50,
+                    width: 150,
+                    color: Colors.blue,
+                    child: Center(
+                        child: Text("Hello",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          ),)),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 150,
+                    color: Colors.green,
+                    child: Center(
+                        child: Text("World",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          ),)),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 150,
+                    color: Colors.blue,
+                    child: Center(
+                        child: Text("Hello",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          ),)),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 150,
+                    color: Colors.red,
+                    child: Center(
+                        child: Text("World",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          ),)),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 150,
+                    color: Colors.blue,
+                    child: Center(
+                        child: Text("Hello",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          ),)),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 150,
+                    color: Colors.green,
+                    child: Center(
+                        child: Text("World",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          ),)),
+
+                  ),
+                ],
+              ),
+              ElevatedButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Page3()));
+              }, child: Text("Page 3"))
+            ],
+          ),
         )
       ),
     );
