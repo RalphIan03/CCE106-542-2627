@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sampleflutter/page3.dart';
 import 'package:sampleflutter/page5.dart';
+import 'package:http/http.dart' as http;
+import 'package:sampleflutter/samplemap.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({super.key,
@@ -207,7 +209,14 @@ class _SecondPageState extends State<SecondPage> {
                     color: Colors.blue,
                     child: InkWell(
                       splashColor: Colors.green,
-                      onTap: (){},
+                      onTap: () async{
+                        // var url = Uri.https("www.google.com");
+                        // var response = await http.get(url);
+                        // print(response.statusCode);
+                        // print(response.body);
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MapSample()));
+                      },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
